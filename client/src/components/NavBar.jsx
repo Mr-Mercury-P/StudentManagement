@@ -117,7 +117,7 @@ export default function Navbar() {
 
       <nav>
         <div className="container">
-          <h1>User Management</h1>
+          <h1>Student Management</h1>
           <div className="menu-toggle" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </div>
@@ -126,20 +126,38 @@ export default function Navbar() {
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               <li>
                 <Link
-                  to="/store-user"
+                  to="/add-student"
                   className={`nav-item ${active === "store" ? "active" : ""}`}
                   onClick={() => handleNavClick("store")}
                 >
-                  Store User
+                  Store Student
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/retrieve-user"
+                  to="/retrieve-student"
                   className={`nav-item ${active === "retrieve" ? "active" : ""}`}
                   onClick={() => handleNavClick("retrieve")}
                 >
                   Retrieve Details
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/add-placement-drive"
+                  className={`nav-item ${active === "add-placement-drive" ? "active" : ""}`}
+                  onClick={() => handleNavClick("add-placement-drive")}
+                >
+                  Add Placement drive
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/view-placements"
+                  className={`nav-item ${active === "view-placements" ? "active" : ""}`}
+                  onClick={() => handleNavClick("view-placements")}
+                >
+                  View Placements
                 </Link>
               </li>
             </ul>

@@ -1,26 +1,29 @@
 const express = require('express');
-const connectDB = require('./config/db');
-const User = require('./models/user');
 const cors = require('cors');
+const connectDB = require('./config/db');
+const studentRoutes = require('./routes/studentRoutes');
+const companyRoutes = require('./routes/companyRoutes');
 
-const port = 3000;
-const userRoutes = require('./routes/users');
 const app = express();
+const port = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
-app.use(cors());
-app.use(cors({
-    origin: 'http://localhost:3001',  // Adjust based on your frontend port
-  }));
-  
+app.use(cors({ origin: 'http://localhost:3001' })); // Adjust as per frontend origin
+
+// Database Connection
 connectDB();
 
-app.use('/users', userRoutes);
+// Routes
+app.use('/students', studentRoutes);
+app.use('/companies', companyRoutes);
 
+// Default Route
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+    res.send('Hello, World!');
 });
 
+// Start Server
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
