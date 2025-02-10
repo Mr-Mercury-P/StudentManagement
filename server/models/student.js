@@ -1,20 +1,44 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const companySchema = new mongoose.Schema({
-  _id: { type: String, required: true }, // Unique company ID
-  name: { type: String, required: true },
-  location: { type: String, required: true },
-  placed_students: [
-    {
-      student_id: { type: String, required: true }, // Reference to Student _id
-      placement_date: { type: Date, required: true },
-      role: { type: String, required: true },
-      package: { type: Number, required: true }, // Salary in LPA
-    },
-  ],
+const studentSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Name is required'],
+    trim: true,
+  },
+  rollno: {
+    type: String,
+    required: [true, 'Roll number is required'],
+    unique: true,
+    trim: true,
+  },
+  department: {
+    type: String,
+    required: [true, 'Department is required'],
+    enum: ['CSE', 'ECE', 'ME', 'CE'], // Add more departments as needed
+  },
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+    unique: true,
+    match: [
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      'Please provide a valid email address',
+    ],
+  },  
+  phone: {
+    type: String,
+    required: [true, 'Phone number is required'],
+    unique: true,
+    match: [/^\d{10}$/, 'Phone number must be 10 digits'],
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-// Check if the model already exists to prevent overwriting
-const Company = mongoose.models.companies || mongoose.model("Company", companySchema, "companies");
+// Create the model for the schema
+const Student = mongoose.model('Student', studentSchema);
 
-module.exports = Company;
+module.exports = Student;

@@ -36,17 +36,79 @@ const StudentForm = () => {
     }
   };
 
+  // Inline styles
+  const styles = {
+    container: {
+      maxWidth: '600px',
+      margin: '2rem auto',
+      backgroundColor: 'white',
+      padding: '2rem',
+      borderRadius: '8px',
+      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+      border: '1px solid #ccc',
+    },
+    title: {
+      fontSize: '24px',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: '#333',
+      marginBottom: '1.5rem',
+    },
+    inputField: {
+      width: '100%',
+      padding: '12px',
+      border: '1px solid #ccc',
+      borderRadius: '4px',
+      marginBottom: '1rem',
+      transition: 'border-color 0.3s',
+    },
+    inputFieldFocus: {
+      borderColor: '#007bff',
+      outline: 'none',
+    },
+    selectField: {
+      width: '100%',
+      padding: '12px',
+      border: '1px solid #ccc',
+      borderRadius: '4px',
+      marginBottom: '1rem',
+      transition: 'border-color 0.3s',
+    },
+    selectFieldFocus: {
+      borderColor: '#007bff',
+      outline: 'none',
+    },
+    submitButton: {
+      width: '100%',
+      padding: '12px',
+      backgroundColor: '#007bff',
+      color: 'white',
+      border: 'none',
+      borderRadius: '4px',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s, transform 0.3s',
+    },
+    submitButtonHover: {
+      backgroundColor: '#0056b3',
+      transform: 'scale(1.05)',
+    },
+  };
+
   return (
-    <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
-      <h2 className="text-2xl font-semibold text-center mb-4">Add Student</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div style={styles.container}>
+      <h2 style={styles.title}>Add New Student</h2>
+      <form onSubmit={handleSubmit}>
         <input 
           type="text" 
           name="name" 
           placeholder="Full Name" 
           value={formData.name} 
           onChange={handleChange} 
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required
+          style={styles.inputField} 
+          onFocus={(e) => e.target.style.borderColor = styles.inputFieldFocus.borderColor}
+          onBlur={(e) => e.target.style.borderColor = '#ccc'}
+          required
         />
         <input 
           type="email" 
@@ -54,7 +116,10 @@ const StudentForm = () => {
           placeholder="Email" 
           value={formData.email} 
           onChange={handleChange} 
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required
+          style={styles.inputField} 
+          onFocus={(e) => e.target.style.borderColor = styles.inputFieldFocus.borderColor}
+          onBlur={(e) => e.target.style.borderColor = '#ccc'}
+          required
         />
         <input 
           type="text" 
@@ -62,7 +127,10 @@ const StudentForm = () => {
           placeholder="Roll Number" 
           value={formData.rollno} 
           onChange={handleChange} 
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required
+          style={styles.inputField} 
+          onFocus={(e) => e.target.style.borderColor = styles.inputFieldFocus.borderColor}
+          onBlur={(e) => e.target.style.borderColor = '#ccc'}
+          required
         />
         <input 
           type="text" 
@@ -71,13 +139,19 @@ const StudentForm = () => {
           value={formData.phone} 
           onChange={handleChange} 
           pattern="\d{10}"
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required
+          style={styles.inputField} 
+          onFocus={(e) => e.target.style.borderColor = styles.inputFieldFocus.borderColor}
+          onBlur={(e) => e.target.style.borderColor = '#ccc'}
+          required
         />
         <select 
           name="department" 
           value={formData.department} 
           onChange={handleChange} 
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required
+          style={styles.selectField} 
+          onFocus={(e) => e.target.style.borderColor = styles.selectFieldFocus.borderColor}
+          onBlur={(e) => e.target.style.borderColor = '# ccc'}
+          required
         >
           <option value="">Select Department</option>
           <option value="CSE">Computer Science</option>
@@ -87,7 +161,9 @@ const StudentForm = () => {
         </select>
         <button 
           type="submit" 
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+          style={styles.submitButton}
+          onMouseOver={(e) => e.target.style.backgroundColor = styles.submitButtonHover.backgroundColor}
+          onMouseOut={(e) => e.target.style.backgroundColor = '#007bff'}
         >
           Create Student
         </button>

@@ -63,28 +63,100 @@ const RetrieveStudent = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  // Inline styles
+  const styles = {
+    container: {
+      padding: '2rem',
+      width: '100%',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    title: {
+      fontSize: '2rem',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: '2rem',
+    },
+    tableContainer: {
+      width: '100%',
+      maxWidth: '800px',
+      overflowX: 'auto',
+    },
+    table: {
+      width: '100%',
+      backgroundColor: 'white',
+      border: '1px solid #ccc',
+      borderRadius: '8px',
+      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+      textAlign: 'left',
+    },
+    thead: {
+      backgroundColor: '#f0f0f0',
+      color: '#333',
+    },
+    th: {
+      border: '1px solid #ccc',
+      padding: '12px',
+      cursor: 'pointer',
+    },
+    tr: {
+      textAlign: 'center',
+      border: '1px solid #ccc',
+      transition: 'background-color 0.2s',
+    },
+    td: {
+      border: '1px solid #ccc',
+      padding: '12px',
+    },
+    pagination: {
+      display: 'flex',
+      gap: '1rem',
+      marginTop: '1rem',
+    },
+    button: {
+      padding: '10px 20px',
+      backgroundColor: '#ccc',
+      border: 'none',
+      borderRadius: '4px',
+      cursor: 'pointer',
+    },
+    buttonDisabled: {
+      backgroundColor: '#e0e0e0',
+      cursor: 'not-allowed',
+    },
+    error: {
+      color: 'red',
+      backgroundColor: '#f8d7da',
+      padding: '1rem',
+      borderRadius: '4px',
+      marginTop: '1rem',
+    },
+  };
+
   if (loading) {
-    return <div className="text-center text-lg font-semibold mt-10">Loading...</div>;
+    return <div style={{ textAlign: 'center', fontSize: '1.5rem', marginTop: '2rem' }}>Loading...</div>;
   }
 
   if (error) {
-    return <div className="text-center text-red-600 bg-red-100 p-4 rounded-md mt-10">{error}</div>;
+    return <div style={styles.error}>{error}</div>;
   }
 
   return (
-    <div className="p-8 w-full min-h-screen flex flex-col items-center">
-      <h1 className="text-4xl font-bold text-center mb-8">Student List</h1>
+    <div style={styles.container}>
+      <h1 style={styles.title}>Student List</h1>
 
       {/* Table */}
-      <div className="w-full max-w-6xl overflow-x-auto">
-        <table className="w-full bg-white border border-gray-300 shadow-lg rounded-lg text-lg">
-          <thead className="bg-gray-200 text-gray-700">
+      <div style={styles.tableContainer}>
+        <table style={styles.table}>
+          <thead style={styles.thead}>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="border px-8 py-4 cursor-pointer"
+                    style={styles.th}
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     {flexRender(header.column.columnDef.header, header.getContext())}
@@ -96,9 +168,9 @@ const RetrieveStudent = () => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="text-center border hover:bg-blue-100 transition duration-200">
+              <tr key={row.id} style={styles.tr}>
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="border px-8 py-4">
+                  <td key={cell.id} style={styles.td}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
@@ -109,16 +181,16 @@ const RetrieveStudent = () => {
       </div>
 
       {/* Pagination Controls */}
-      <div className="flex gap-2 mt-4">
+      <div style={styles.pagination}>
         <button
-          className="px-4 py-2 bg-gray-300 rounded-md"
+          style={{ ...styles.button, ...(table.getCanPreviousPage() ? {} : styles.buttonDisabled) }}
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
           Previous
         </button>
         <button
-          className="px-4 py-2 bg-gray-300 rounded-md"
+          style={{ ...styles.button, ...(table.getCanNextPage() ? {} : styles.buttonDisabled) }}
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >

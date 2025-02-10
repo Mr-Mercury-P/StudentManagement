@@ -3,7 +3,6 @@ const Student = require('../models/student');
 const router = express.Router();
 router.get('/', async (req, res) => {
   try {
-      console.log('Fetching students from the database...');
       const students = await Student.find();
       res.status(200).json(students);
   } catch (error) {

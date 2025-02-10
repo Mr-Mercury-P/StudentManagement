@@ -14,8 +14,14 @@ export default function Navbar() {
   return (
     <div>
       <style jsx>{`
+        body {
+          font-family: 'Lucida Console', monospace;
+          background-color: #f5f5f5; /* Light background for contrast */
+          color: #333; /* Darker text color for better readability */
+          font-weight: 400; /* Normal font weight */
+        }
         nav {
-          background-color: #2563eb;
+          background-color: #4a90e2; /* A calming blue */
           padding: 1rem;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           position: relative;
@@ -30,8 +36,8 @@ export default function Navbar() {
         }
 
         h1 {
-          color: white;
-          font-size: 1.5rem;
+          color:rgb(19, 17, 17); /* White for contrast */
+          font-size: 1.8rem;
           font-weight: bold;
           margin: 0;
         }
@@ -46,7 +52,7 @@ export default function Navbar() {
 
         .nav-item {
           padding: 0.5rem 1rem;
-          color: white;
+          color: #ffffff; /* White for contrast */
           border-radius: 0.375rem;
           transition: background-color 0.3s, transform 0.2s;
           text-decoration: none;
@@ -54,18 +60,19 @@ export default function Navbar() {
         }
 
         .nav-item:hover {
-          background-color: #1d4ed8;
+          background-color: #357ab8; /* Darker blue on hover */
           transform: translateY(-2px);
         }
 
         .active {
-          background-color: #1e40af;
+          background-color: #1e40af; /* Dark blue for active item */
         }
 
         .button {
+          font-family: 'Lucida Console', monospace;
           padding: 0.75rem 1.5rem;
-          background-color: white;
-          color: #2563eb;
+          background-color: #ffffff; /* White for button */
+          color: #4a90e2; /* Blue text for button */
           border: none;
           border-radius: 0.375rem;
           cursor: pointer;
@@ -74,14 +81,14 @@ export default function Navbar() {
         }
 
         .button:hover {
-          background-color: #e5e7eb;
+          background-color: #e5e7eb; /* Light gray on hover */
           transform: translateY(-2px);
         }
 
         .menu-toggle {
           display: none;
           cursor: pointer;
-          color: white;
+          color: #ffffff; /* White for icon */
           transition: transform 0.3s;
         }
 
@@ -97,7 +104,7 @@ export default function Navbar() {
             top: 100%;
             left: 0;
             right: 0;
-            background-color: #2563eb;
+            background-color: #4a90e2; /* Match nav background */
             padding: 1rem;
             z-index: 10;
             gap: 1rem;
@@ -148,8 +155,8 @@ export default function Navbar() {
                   className={`nav-item ${active === "add-placement-drive" ? "active" : ""}`}
                   onClick={() => handleNavClick("add-placement-drive")}
                 >
-                  Add Placement drive
-                </Link>
+                  Add Placement Drive
+                </ Link>
               </li>
               <li>
                 <Link
