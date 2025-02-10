@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
-  useReactTable,
+  createColumnHelper,
+  flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  getFilteredRowModel,
-  flexRender,
-  createColumnHelper,
+  useReactTable,
 } from "@tanstack/react-table";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const RetrieveStudent = () => {
   const [students, setStudents] = useState([]);
@@ -17,7 +17,7 @@ const RetrieveStudent = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/students") // API Endpoint
+      .get("http://localhost:4000/students") // API Endpoint
       .then((response) => {
         setStudents(response.data);
         setLoading(false);
@@ -28,7 +28,6 @@ const RetrieveStudent = () => {
       });
   }, []);
 
-  // Define columns using `createColumnHelper`
   const columnHelper = createColumnHelper();
   const columns = [
     columnHelper.accessor("name", {

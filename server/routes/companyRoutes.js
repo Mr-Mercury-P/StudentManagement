@@ -1,7 +1,9 @@
-const express = require('express');
-const Company = require('../models/companies');
+const express = require("express");
+const Company = require("../models/companies");
+const Student = require("../models/student"); // Import Student model
 const router = express.Router();
 
+// Get all companies
 router.get("/", async (req, res) => {
   try {
     const companies = await Company.find().lean();
@@ -11,24 +13,39 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+// Add a new company
+router.post("/", async (req, res) => {
   try {
-    const company = await Company.findById(req.params.id).lean();
-    if (!company) return res.status(404).json({ message: "Company not found" });
+    const { name, packageInLakhs, placed_students } = req.body;
 
-    res.status(200).json(company);
+    if (!name || !packageInLakhs) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const newCompany = new Company({
+      name,
+      packageInLakhs,
+      placed_students: placed_students || [],
+    });
+
+    const savedCompany = await newCompany.save();
+    res.status(201).json(savedCompany);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Get all placed students for a company
-router.get("/placed-students/:companyId", async (req, res) => {
+// Get students placed in a specific company by name
+router.get("/:companyName/students", async (req, res) => {
   try {
-    const company = await Company.findById(req.params.companyId).lean();
-    if (!company) return res.status(404).json({ message: "Company not found" });
+    const { companyName } = req.params;
+    const company = await Company.findOne({ name: companyName }).populate("placed_students.student_id").lean();
 
-    res.status(200).json(company.placed_students);
+    if (!company) {
+      return res.status(404).json({ message: "Company not found" });
+    }
+
+    res.status(200).json({ placed_students: company.placed_students });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
